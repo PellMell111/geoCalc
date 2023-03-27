@@ -1,5 +1,8 @@
+let arrayHistorial = []
+
 class Rectangulo {
-    constructor(alto, ancho) {
+    constructor(tipo, alto, ancho) {
+        this.tipo = tipo;
         this.alto = alto;
         this.ancho = ancho;
     }
@@ -13,12 +16,17 @@ class Rectangulo {
     }
 }
 
-const submitRectangulo = document.getElementById("submitRectangulo");
+const submitRectangulo = document.getElementById("inputRectangulo");
 
-submitRectangulo.onsubmit = () => {
-    alto = document.getElementById("alto");
-    ancho = document.getElementById("ancho");
+submitRectangulo.addEventListener("submit", (e) => {
+    e.preventDefault();
+    tipo = "rectangulo";
+    alto = document.getElementById("alto").value;
+    ancho = document.getElementById("ancho").value;
 
-    rectanguloActivo = new Rectangulo(alto, ancho);
-    document.getElementById("displayResultado").innerHTML= `<p>Perímetro: ${rectanguloActivo.calcularPerimetro}. Area: ${rectanguloActivo.calcularArea}.</p>`;
-}
+    rectanguloActivo = new Rectangulo(tipo, alto, ancho);
+    document.getElementById("displayResultado").innerHTML= `<p>Perímetro: ${rectanguloActivo.calcularPerimetro()}. Area: ${rectanguloActivo.calcularArea()}.</p>`;
+    arrayHistorial.push(rectanguloActivo);
+})
+
+console.log(arrayHistorial)
