@@ -1,3 +1,4 @@
+//Este es el array que quiero almacenar
 let arrayHistorial = []
 
 class Rectangulo {
@@ -26,6 +27,7 @@ submitRectangulo.addEventListener("submit", (e) => {
 
     rectanguloActivo = new Rectangulo(tipo, alto, ancho);
     document.getElementById("displayResultado").innerHTML= `<p>Perímetro: ${rectanguloActivo.calcularPerimetro()}. Area: ${rectanguloActivo.calcularArea()}.</p>`;
+    //Aquí se cargan las modificaciones al array
     arrayHistorial.push(rectanguloActivo);
 })
 
