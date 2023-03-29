@@ -79,7 +79,7 @@ botonCirculo.addEventListener("click", (e) => {
         document.getElementById("displayResultado").innerHTML = `<p>Perímetro: ${circuloActivo.calcularPerimetro()}. Area: ${circuloActivo.calcularArea()}.</p>`;
 
         //Aquí es donde se cargan los circulos generados por el usuario.
-        arrayHistorial.push(rectanguloActivo);
+        arrayHistorial.push(circuloActivo);
         localStorage.setItem('storageHistorial', JSON.stringify(arrayHistorial));
     })
 })
@@ -119,9 +119,15 @@ botonTriangulo.addEventListener("click", (e) => {
         document.getElementById("displayResultado").innerHTML = `Area: ${trianguloActivo.calcularArea()}.</p>`;
 
         //Aquí es donde se cargan los triangulos generados por el usuario.
-        arrayHistorial.push(rectanguloActivo);
+        arrayHistorial.push(trianguloActivo);
         localStorage.setItem('storageHistorial', JSON.stringify(arrayHistorial));
     })
 })
+
+let i = 0;
+while (i < arrayHistorial.length) {
+    document.getElementById("displayHistorial").innerHTML = `${arrayHistorial[i]}`;
+    i++;
+}
 
 console.log(arrayHistorial)
