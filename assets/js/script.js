@@ -133,6 +133,6 @@ arrayHistorial.array.forEach(element => {
     } else if (element.tipo = "circulo") {
         div.innerHTML = `Círculo (Radio: ${element.radio}) Perímetro: ${element.calcularPerimetro()}. Area: ${element.calcularArea()}.`;
     } else if (element.tipo = "triangulo") {
-        div.innerHTML = `Triángulo (Altura: ${element.altura}. Base ${element.base}) Area: ${element.calcularArea}.`
+        div.innerHTML = `Triángulo (Altura: ${element.altura}. Base ${element.base}) Area: ${element.calcularArea}.`;
     }
 });
