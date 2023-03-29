@@ -124,10 +124,15 @@ botonTriangulo.addEventListener("click", (e) => {
     })
 })
 
-let i = 0;
-while (i < arrayHistorial.length) {
-    document.getElementById("displayHistorial").innerHTML = `${arrayHistorial[i]}`;
-    i++;
-}
-
-console.log(arrayHistorial)
+//Intento de visualizar en el documento los objetos del arrayHistorial.
+const documentoHistorial = document.getElementById("displayHistorial");
+arrayHistorial.array.forEach(element => {
+    const div = createElement('div');
+    if (element.tipo = "rectangulo") {
+        div.innerHTML = `<p>Rectangulo (Alto: ${element.alto} / Ancho: ${element.ancho}) Perímetro: ${element.calcularPerimetro()}. Area: ${element.calcularArea()}.</p>`;
+    } else if (element.tipo = "circulo") {
+        div.innerHTML = `Círculo (Radio: ${element.radio}) Perímetro: ${element.calcularPerimetro()}. Area: ${element.calcularArea()}.`;
+    } else if (element.tipo = "triangulo") {
+        div.innerHTML = `Triángulo (Altura: ${element.altura}. Base ${element.base}) Area: ${element.calcularArea}.`
+    }
+});
