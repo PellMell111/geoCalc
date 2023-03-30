@@ -2,6 +2,7 @@ let arrayHistorial = JSON.parse(localStorage.getItem('storageHistorial')) || [];
 
 class Rectangulo {
     constructor(tipo, alto, ancho) {
+        //Esta es la propiedad que está generando el problema.
         this.tipo = tipo;
         this.alto = alto;
         this.ancho = ancho;
@@ -30,6 +31,7 @@ botonRectangulo.addEventListener("click", (e) => {
 
     submitRectangulo.addEventListener("submit", (e) => {
         e.preventDefault();
+        //Aquí asigno el valor de la propiedad.
         tipo = "rectangulo";
         alto = document.getElementById("alto").value;
         ancho = document.getElementById("ancho").value;
@@ -48,6 +50,7 @@ botonRectangulo.addEventListener("click", (e) => {
 
 class Circulo {
     constructor(tipo, radio) {
+        //Esta es la propiedad que está generando el problema.
         this.tipo = tipo;
         this.radio = radio;
     }
@@ -74,6 +77,7 @@ botonCirculo.addEventListener("click", (e) => {
 
     submitCirculo.addEventListener("submit", (e) => {
         e.preventDefault();
+        //Aquí asigno el valor de la propiedad.
         tipo = "circulo";
         radio = document.getElementById("radio").value;
 
@@ -91,6 +95,7 @@ botonCirculo.addEventListener("click", (e) => {
 
 class Triangulo {
     constructor(tipo, altura, base) {
+        //Esta es la propiedad que está generando el problema.
         this.tipo = tipo;
         this.altura = altura;
         this.base = base;
@@ -116,6 +121,7 @@ botonTriangulo.addEventListener("click", (e) => {
 
     submitTriangulo.addEventListener("submit", (e) => {
         e.preventDefault();
+        //Aquí asigno el valor de la propiedad.
         tipo = "triangulo";
         altura = document.getElementById("altura").value;
         base = document.getElementById("base").value;
@@ -126,13 +132,10 @@ botonTriangulo.addEventListener("click", (e) => {
 
         document.getElementById("displayResultado").innerHTML = `Area: ${trianguloActivo.calcularArea()}.</p>`;
 
-        //Aquí es donde se cargan los triangulos generados por el usuario.
         arrayHistorial.push(trianguloActivo);
         localStorage.setItem('storageHistorial', JSON.stringify(arrayHistorial));
     })
 })
-
-//Intento de visualizar en el documento los objetos del arrayHistorial.
 
 const documentoHistorial = document.getElementById("displayHistorial");
 arrayHistorial.forEach(element => {
