@@ -1,4 +1,3 @@
-//Este es el array que quiero visualizar. Marcaré con comentarios a continuación los push donde se cargan los distintos objetos.
 let arrayHistorial = JSON.parse(localStorage.getItem('storageHistorial')) || [];
 
 class Rectangulo {
@@ -36,9 +35,12 @@ botonRectangulo.addEventListener("click", (e) => {
         ancho = document.getElementById("ancho").value;
 
         rectanguloActivo = new Rectangulo(tipo, alto, ancho);
+
+        rectanguloActivo.perimetro = rectanguloActivo.calcularPerimetro();
+        rectanguloActivo.area = rectanguloActivo.calcularArea();
+
         document.getElementById("displayResultado").innerHTML = `<p>Perímetro: ${rectanguloActivo.calcularPerimetro()}. Area: ${rectanguloActivo.calcularArea()}.</p>`;
 
-        //Aquí es donde se cargan los rectangulos generados por el usuario.
         arrayHistorial.push(rectanguloActivo);
         localStorage.setItem('storageHistorial', JSON.stringify(arrayHistorial));
     })
@@ -76,9 +78,12 @@ botonCirculo.addEventListener("click", (e) => {
         radio = document.getElementById("radio").value;
 
         circuloActivo = new Circulo(tipo, radio);
+
+        circuloActivo.perimetro = circuloActivo.calcularPerimetro();
+        circuloActivo.area = circuloActivo.calcularArea();
+
         document.getElementById("displayResultado").innerHTML = `<p>Perímetro: ${circuloActivo.calcularPerimetro()}. Area: ${circuloActivo.calcularArea()}.</p>`;
 
-        //Aquí es donde se cargan los circulos generados por el usuario.
         arrayHistorial.push(circuloActivo);
         localStorage.setItem('storageHistorial', JSON.stringify(arrayHistorial));
     })
@@ -116,6 +121,9 @@ botonTriangulo.addEventListener("click", (e) => {
         base = document.getElementById("base").value;
 
         trianguloActivo = new Triangulo(tipo, altura, base);
+
+        trianguloActivo.area = trianguloActivo.calcularArea();
+
         document.getElementById("displayResultado").innerHTML = `Area: ${trianguloActivo.calcularArea()}.</p>`;
 
         //Aquí es donde se cargan los triangulos generados por el usuario.
@@ -125,14 +133,16 @@ botonTriangulo.addEventListener("click", (e) => {
 })
 
 //Intento de visualizar en el documento los objetos del arrayHistorial.
+
 const documentoHistorial = document.getElementById("displayHistorial");
-arrayHistorial.array.forEach(element => {
-    const div = createElement('div');
+arrayHistorial.forEach(element => {
+    const div = document.createElement('div');
     if (element.tipo = "rectangulo") {
-        div.innerHTML = `<p>Rectangulo (Alto: ${element.alto} / Ancho: ${element.ancho}) Perímetro: ${element.calcularPerimetro()}. Area: ${element.calcularArea()}.</p>`;
+        div.innerHTML = `<p>Rectangulo (Alto: ${element.alto} / Ancho: ${element.ancho}) Perímetro: ${element.perimetro}. Area: ${element.area}.</p>`;
     } else if (element.tipo = "circulo") {
-        div.innerHTML = `Círculo (Radio: ${element.radio}) Perímetro: ${element.calcularPerimetro()}. Area: ${element.calcularArea()}.`;
+        div.innerHTML = `Círculo (Radio: ${element.radio}) Perímetro: ${element.perimetro}. Area: ${element.area}.`;
     } else if (element.tipo = "triangulo") {
-        div.innerHTML = `Triángulo (Altura: ${element.altura}. Base ${element.base}) Area: ${element.calcularArea}.`;
+        div.innerHTML = `Triángulo (Altura: ${element.altura}. Base ${element.base}) Area: ${element.area}.`;
     }
+    documentoHistorial.appendChild(div);
 });
