@@ -2,7 +2,6 @@ let arrayHistorial = JSON.parse(localStorage.getItem('storageHistorial')) || [];
 
 class Rectangulo {
     constructor(tipo, alto, ancho) {
-        //Esta es la propiedad que está generando el problema.
         this.tipo = tipo;
         this.alto = alto;
         this.ancho = ancho;
@@ -31,7 +30,6 @@ botonRectangulo.addEventListener("click", (e) => {
 
     submitRectangulo.addEventListener("submit", (e) => {
         e.preventDefault();
-        //Aquí asigno el valor de la propiedad.
         tipo = "rectangulo";
         alto = document.getElementById("alto").value;
         ancho = document.getElementById("ancho").value;
@@ -50,7 +48,6 @@ botonRectangulo.addEventListener("click", (e) => {
 
 class Circulo {
     constructor(tipo, radio) {
-        //Esta es la propiedad que está generando el problema.
         this.tipo = tipo;
         this.radio = radio;
     }
@@ -77,7 +74,6 @@ botonCirculo.addEventListener("click", (e) => {
 
     submitCirculo.addEventListener("submit", (e) => {
         e.preventDefault();
-        //Aquí asigno el valor de la propiedad.
         tipo = "circulo";
         radio = document.getElementById("radio").value;
 
@@ -95,7 +91,6 @@ botonCirculo.addEventListener("click", (e) => {
 
 class Triangulo {
     constructor(tipo, altura, base) {
-        //Esta es la propiedad que está generando el problema.
         this.tipo = tipo;
         this.altura = altura;
         this.base = base;
@@ -121,7 +116,6 @@ botonTriangulo.addEventListener("click", (e) => {
 
     submitTriangulo.addEventListener("submit", (e) => {
         e.preventDefault();
-        //Aquí asigno el valor de la propiedad.
         tipo = "triangulo";
         altura = document.getElementById("altura").value;
         base = document.getElementById("base").value;
@@ -140,12 +134,9 @@ botonTriangulo.addEventListener("click", (e) => {
 const documentoHistorial = document.getElementById("displayHistorial");
 arrayHistorial.forEach(element => {
     const div = document.createElement('div');
-    if (element.tipo = "rectangulo") {
-        div.innerHTML = `<p>Rectangulo (Alto: ${element.alto} / Ancho: ${element.ancho}) Perímetro: ${element.perimetro}. Area: ${element.area}.</p>`;
-    } else if (element.tipo = "circulo") {
-        div.innerHTML = `Círculo (Radio: ${element.radio}) Perímetro: ${element.perimetro}. Area: ${element.area}.`;
-    } else if (element.tipo = "triangulo") {
-        div.innerHTML = `Triángulo (Altura: ${element.altura}. Base ${element.base}) Area: ${element.area}.`;
-    }
+    div.innerHTML =
+        element.tipo == "rectangulo" ? `<p>Rectangulo (Alto: ${element.alto} / Ancho: ${element.ancho}) Perímetro: ${element.perimetro}. Area: ${element.area}.</p>`:
+        element.tipo == "circulo" ? `Círculo (Radio: ${element.radio}) Perímetro: ${element.perimetro}. Area: ${element.area}.`:
+        element.tipo == "triangulo" ? `Triángulo (Altura: ${element.altura} / Base ${element.base}) Area: ${element.area}.`: '';
     documentoHistorial.appendChild(div);
 });
