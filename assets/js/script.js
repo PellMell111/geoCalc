@@ -1,5 +1,7 @@
+//Array que guarda los objetos generados por el usuario al realizar operaciones.
 let arrayHistorial = JSON.parse(localStorage.getItem('storageHistorial')) || [];
 
+//Clase con la función constructora y los calculos correspondientes a un rectángulo.
 class Rectangulo {
     constructor(tipo, alto, ancho) {
         this.tipo = tipo;
@@ -16,6 +18,7 @@ class Rectangulo {
     }
 }
 
+//Evento que se activa cuando el usuario selecciona el botón Rectángulo.
 const botonRectangulo = document.getElementById("seleccionRectangulo");
 botonRectangulo.addEventListener("click", (e) => {
     e.preventDefault();
@@ -28,24 +31,30 @@ botonRectangulo.addEventListener("click", (e) => {
 
     const submitRectangulo = document.getElementById("inputRectangulo");
 
+    //Función que se activa cuando el usuario genera un calculo para un rectángulo.
     submitRectangulo.addEventListener("submit", (e) => {
         e.preventDefault();
         tipo = "rectangulo";
         alto = document.getElementById("alto").value;
         ancho = document.getElementById("ancho").value;
 
+        //Se genera un nuevo objeto.
         rectanguloActivo = new Rectangulo(tipo, alto, ancho);
 
+        //Se agregan "perimetro" y "area" como propiedades del objeto con sus valores correspondientes.
         rectanguloActivo.perimetro = rectanguloActivo.calcularPerimetro();
         rectanguloActivo.area = rectanguloActivo.calcularArea();
 
+        //Se renderiza el resultado de la operación.
         document.getElementById("displayResultado").innerHTML = `<p>Perímetro: ${rectanguloActivo.calcularPerimetro()}. Area: ${rectanguloActivo.calcularArea()}.</p>`;
 
+        //Se agrega el nuevo objeto al arrayHistorial y se guarda en el localStorage.
         arrayHistorial.push(rectanguloActivo);
         localStorage.setItem('storageHistorial', JSON.stringify(arrayHistorial));
     })
 })
 
+//Clase con la función constructora y los calculos correspondientes a un círculo.
 class Circulo {
     constructor(tipo, radio) {
         this.tipo = tipo;
@@ -61,6 +70,7 @@ class Circulo {
     }
 }
 
+//Evento que se activa cuando el usuario selecciona el botón Círculo.
 const botonCirculo = document.getElementById("seleccionCirculo");
 botonCirculo.addEventListener("click", (e) => {
     e.preventDefault();
@@ -72,6 +82,7 @@ botonCirculo.addEventListener("click", (e) => {
 
     const submitCirculo = document.getElementById("inputCirculo");
 
+    //Función que se activa cuando el usuario genera un calculo para un círculo.
     submitCirculo.addEventListener("submit", (e) => {
         e.preventDefault();
         tipo = "circulo";
@@ -89,6 +100,7 @@ botonCirculo.addEventListener("click", (e) => {
     })
 })
 
+//Clase con la función constructora y los calculos correspondientes a un triángulo. Solo calcula area porque el proceso para calcular el perimetro de un triángulo es diametralmente distinto.
 class Triangulo {
     constructor(tipo, altura, base) {
         this.tipo = tipo;
@@ -101,8 +113,8 @@ class Triangulo {
     }
 }
 
+//Evento que se activa cuando el usuario selecciona el botón Triángulo.
 const botonTriangulo = document.getElementById("seleccionTriangulo");
-
 botonTriangulo.addEventListener("click", (e) => {
     e.preventDefault();
     document.getElementById("seleccionFigura").innerHTML = `
@@ -114,6 +126,7 @@ botonTriangulo.addEventListener("click", (e) => {
     
     const submitTriangulo = document.getElementById("inputTriangulo");
 
+    //Función que se activa cuando el usuario genera un calculo para un triángulo.
     submitTriangulo.addEventListener("submit", (e) => {
         e.preventDefault();
         tipo = "triangulo";
@@ -131,12 +144,31 @@ botonTriangulo.addEventListener("click", (e) => {
     })
 })
 
+//Declaraciones que renderizan el contenido del arrayHistorial.
 const documentoHistorial = document.getElementById("displayHistorial");
-arrayHistorial.forEach(element => {
+
+//Declaración de la función que identifica el tipo de figura cuyos valores se están intentando renderizar y genera el <div> con el formato correspondiente a dicha figura.
+const generarDiv = (element, documentoHistorial) => {
     const div = document.createElement('div');
     div.innerHTML =
-        element.tipo == "rectangulo" ? `<p>Rectangulo (Alto: ${element.alto} / Ancho: ${element.ancho}) Perímetro: ${element.perimetro}. Area: ${element.area}.</p>`:
-        element.tipo == "circulo" ? `Círculo (Radio: ${element.radio}) Perímetro: ${element.perimetro}. Area: ${element.area}.`:
-        element.tipo == "triangulo" ? `Triángulo (Altura: ${element.altura} / Base ${element.base}) Area: ${element.area}.`: '';
+        element.tipo == "rectangulo" ?
+        `<p>Rectangulo (Alto: ${element.alto} / Ancho: ${element.ancho}) Perímetro: ${element.perimetro}. Area: ${element.area}.</p>`:
+        element.tipo == "circulo" ?
+        `Círculo (Radio: ${element.radio}) Perímetro: ${element.perimetro}. Area: ${element.area}.`:
+        element.tipo == "triangulo" ?
+        `Triángulo (Altura: ${element.altura} / Base ${element.base}) Area: ${element.area}.`: '';
     documentoHistorial.appendChild(div);
+    return div;
+}
+
+//Función que recorre el array y renderiza la información de los objetos guardados en el localStorage.
+arrayHistorial.forEach(element => {
+    generarDiv(element, documentoHistorial);
 });
+
+//Función que renderiza el último objeto añadido al array cada vez que el usuario hace un submit y agrega un objeto al arrayHistorial.
+document.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const element = arrayHistorial.pop();
+    generarDiv(element, documentoHistorial);
+})
